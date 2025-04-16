@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Приглашение на юбилей</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      background: url('images.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      padding: 40px;
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .photo-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 250px;
+    }
+
+    .photo {
+      max-width: 287px;
+      max-height: 373px;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .photo img:hover {
+      transform: scale(1.03);
+    }
+
+    .text {
+      flex: 2;
+      animation: fadeIn 2s ease;
+      min-width: 300px;
+    }
+
+    .text h1 {
+      font-size: 36px;
+      color: #6d214f;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .text p {
+      font-size: 18px;
+      color: #2d3436;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    form {
+      margin-top: 30px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 15px;
+    }
+
+    input, select, textarea, button {
+      padding: 12px;
+      font-size: 16px;
+      margin: 8px 0;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-family: 'Playfair Display', serif;
+    }
+
+    button {
+      background-color: #6d214f;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #b33771;
+    }
+
+    .countdown {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 22px;
+      color: #222;
+      font-weight: bold;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .music-control {
+      text-align: center;
+      margin: 20px auto;
+    }
+
+    .music-btn {
+      background: #6d214f;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .music-btn:hover {
+      background: #b33771;
+      transform: scale(1.05);
+    }
+
+    .language-switcher {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      gap: 10px;
+      background: rgba(255,255,255,0.8);
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .language-btn {
+      padding: 5px 10px;
+      background: transparent;
+      border: 1px solid #6d214f;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .language-btn:hover {
+      background: #6d214f;
+      color: white;
+    }
+
+    .language-btn.active {
+      background: #6d214f;
+      color: white;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    .falling-flowers {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .flower {
+      position: absolute;
+      top: -50px;
+      width: 30px;
+      height: 30px;
+      background-image: url('romashka.png');
+      background-size: cover;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        margin: 20px;
+        padding: 20px;
+      }
+      
+      .photo-container, .photo {
+        max-width: 100%;
+        margin: 0 auto 20px;
+      }
+      
+      .text h1 {
+        font-size: 28px;
+      }
+      
+      .countdown {
+        font-size: 18px;
+      }
+      
+      .language-switcher {
+        top: 10px;
+        right: 10px;
+      }
+    }
+      .whatsapp-contact {
+        margin: 20px 0;
+        padding: 15px;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        font-size: 1.2em;
+        color: white; /* Добавлено это свойство */
+    }
+    
+    .whatsapp-link {
+        color: #25D366; /* Цвет ссылки WhatsApp (можно оставить зеленым) */
+        text-decoration: none;
+        font-weight: bold;
+    }
+    
+    .whatsapp-link:hover {
+        text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Переключатель языков -->
+<div class="language-switcher">
+  <button class="language-btn active" onclick="changeLanguage('kz')">Қазақша</button>
+  <button class="language-btn" onclick="changeLanguage('ru')">Русский</button>
+</div>
+
+<!-- Музыкальный плеер -->
+<div class="music-control">
+  <button id="music-btn" class="music-btn">🎵 Әнді қосу</button>
+  <audio id="bg-music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+  </audio>
+</div>
+
+<div class="container">
+  <div class="photo-container">
+    <div class="photo">
+      <img src="family.png" alt="Семья Капаровых" onclick="launchConfetti()" id="main-photo">
+    </div>
+    </div>
+  
+  <div class="text">
+    <h1 id="title">Құрметті туыстар!</h1>
+    <p id="invitation-text"> 
+      <strong>Ивановы</strong> әулеті, сіздерді аяулы анамыз <strong>Ивановой Ивану 70 жас</strong> мерей тойының қадірлі қонағы болуға шақырамыз!<br><br>
+      
+      📍 <span id="place">Өтетін орны: <em>Алматы қаласы</em></span><br>
+      🕒 <span id="time">2025 жылдың 13 қыркүйегі, кешкі сағат 18:00.</span>
+    </p>
+
+    <form action="https://formspree.io/f/xyzevdqb" method="POST">
+      <label id="name-label">Сіздің атыңыз кім?</label>
+      <input type="text" name="Имя" required placeholder="Атыңызды жазыңыз">
+
+      <label id="guests-label">Кім келеді?</label>
+      <textarea name="Кто приедит?" placeholder="Мысалы: Мен, жұбайым және балаларым"></textarea>
+
+      <label id="attendance-label">Сіз келе аласыз ба?</label>
+      <select name="Ответ" required>
+        <option value="Да">Иә</option>
+        <option value="Нет">Жоқ</option>
+        <option value="Не уверен(а)">Нақты емес</option>
+      </select>
+
+      <button type="submit" id="submit-btn">Жауапты жіберу</button>
+    </form>
+
+    <div class="countdown" id="countdown">Мереке басталуына: ...</div>
+  </div>
+</div>
+
+<div class="falling-flowers" id="falling-flowers"></div>
+<div class="whatsapp-contact">
+        Если заинтересовало приглашение, обращайтесь в WhatsApp: 
+        <a href="https://wa.me/+77712591727" class="whatsapp-link">нажмите для связи</a>
+    </div>
+<script>
+  // Тексты для разных языков
+  const translations = {
+    kz: {
+      title: "Құрметті туыстар!",
+      invitation: "<strong>Ивановых</strong> әулеті, сіздерді аяулы анамыз <strong>Иван 70 жас</strong> мерей тойының қадірлі қонағы болуға шақырамыз!",
+      place: "Өтетін орны: <em>Алматы қаласы</em>",
+      time: "2025 жылдың 13 қыркүйегі, кешкі сағат 18:00",
+      nameLabel: "Сіздің атыңыз кім?",
+      namePlaceholder: "Атыңызды жазыңыз",
+      guestsLabel: "Кім келеді?",
+      guestsPlaceholder: "Мысалы: Мен, жұбайым және балаларым",
+      attendanceLabel: "Сіз келе аласыз ба?",
+      attendanceOptions: ["Иә", "Жоқ", "Нақты емес"],
+      submitButton: "Жауапты жіберу",
+      countdownText: "Мереке басталуына:",
+      countdownStarted: "Мереке басталды!<br>Сізді күтеміз!",
+      musicButtonPlay: "🎵 Әнді қосу",
+      musicButtonStop: "❌ Әнді өшіру",
+      photoAlt: "Семья Капаровых"
+    },
+    ru: {
+      title: "Дорогие родные и друзья!",
+      invitation: "Семья <strong>Ивановых</strong> приглашает вас на торжественный вечер, посвященный <strong>70-летию</strong> нашей любимой мамы и бабушки <strong>Иванова Дарья</strong>!",
+      place: "Место проведения: <em>г. Алматы</em>",
+      time: "13 сентября 2025 года, начало в 18:00",
+      nameLabel: "Ваше имя:",
+      namePlaceholder: "Введите ваше имя",
+      guestsLabel: "Кто будет присутствовать?",
+      guestsPlaceholder: "Например: я, супруг(а) и двое детей",
+      attendanceLabel: "Вы сможете присутствовать?",
+      attendanceOptions: ["Да", "Нет", "Не уверен(а)"],
+      submitButton: "Подтвердить участие",
+      countdownText: "До праздника осталось:",
+      countdownStarted: "Праздник уже начался!<br>Ждём вас!",
+      musicButtonPlay: "🎵 Включить музыку",
+      musicButtonStop: "❌ Выключить музыку",
+      photoAlt: "Семья Капаровых"
+    }
+  };
+
+  // Функция смены языка
+  function changeLanguage(lang) {
+    const t = translations[lang];
+    
+    // Обновляем тексты на странице
+    document.getElementById('title').innerHTML = t.title;
+    document.getElementById('invitation-text').innerHTML = 
+      `${t.invitation}<br><br>📍 <span id="place">${t.place}</span><br>🕒 <span id="time">${t.time}</span>`;
+    
+    // Обновляем форму
+    document.getElementById('name-label').textContent = t.nameLabel;
+    document.querySelector('input[name="Имя"]').placeholder = t.namePlaceholder;
+    document.getElementById('guests-label').textContent = t.guestsLabel;
+    document.querySelector('textarea').placeholder = t.guestsPlaceholder;
+    document.getElementById('attendance-label').textContent = t.attendanceLabel;
+    
+    const options = document.querySelectorAll('select option');
+    options.forEach((opt, i) => {
+      opt.textContent = t.attendanceOptions[i];
+    });
+    
+    document.getElementById('submit-btn').textContent = t.submitButton;
+    
+    // Обновляем альт текст для фото
+    document.getElementById('main-photo').alt = t.photoAlt;
+    
+    // Обновляем кнопку музыки
+    const musicBtn = document.getElementById('music-btn');
+    if (musicBtn.textContent.includes('Әнді') || musicBtn.textContent.includes('Включить')) {
+      musicBtn.textContent = t.musicButtonPlay;
+    } else {
+      musicBtn.textContent = t.musicButtonStop;
+    }
+    
+    // Обновляем счетчик
+    const countdownText = document.getElementById('countdown').textContent;
+    if (countdownText.includes('Мереке') || countdownText.includes('До праздника')) {
+      const now = new Date().getTime();
+      const distance = new Date("2025-09-13T18:00:00").getTime() - now;
+      if (distance < 0) {
+        document.getElementById('countdown').innerHTML = t.countdownStarted;
+      } else {
+        document.getElementById('countdown').innerHTML = t.countdownText + " ...";
+      }
+    }
+    
+    // Обновляем активную кнопку языка
+    document.querySelectorAll('.language-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    // Сохраняем выбор языка
+    localStorage.setItem('language', lang);
+  }
+
+  // Конфетти при клике на фото
+  let confettiRunning = false;
+
+  function launchConfetti() {
+    if (confettiRunning) return;
+
+    confettiRunning = true;
+    const duration = 5000;
+    const end = Date.now() + duration;
+
+    const interval = setInterval(() => {
+      if (Date.now() > end) {
+        clearInterval(interval);
+      }
+
+      confetti({
+        particleCount: 40,
+        spread: 90,
+        origin: { y: 0.6 }
+      });
+    }, 200);
+
+    setTimeout(() => {
+      confettiRunning = false;
+    }, 5000);
+  }
+
+  // Таймер обратного отсчета
+  const targetDate = new Date("2025-09-13T18:00:00").getTime();
+  const countdownEl = document.getElementById("countdown");
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+    const lang = localStorage.getItem('language') || 'kz';
+    const t = translations[lang];
+
+    if (distance < 0) {
+      countdownEl.innerHTML = t.countdownStarted;
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+    countdownEl.innerHTML = `${t.countdownText}<br>${days} ${lang === 'kz' ? 'күн' : 'дней'} ${hours} ${lang === 'kz' ? 'сағат' : 'часов'} ${minutes} ${lang === 'kz' ? 'минут' : 'минут'}`;
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // Падающие цветы
+  function createFlower() {
+    const flower = document.createElement('div');
+    flower.classList.add('flower');
+    
+    flower.style.left = Math.random() * 100 + 'vw';
+    flower.style.animationDuration = (3 + Math.random() * 5) + 's';
+    flower.style.opacity = Math.random() * 0.7 + 0.3;
+    flower.style.width = (20 + Math.random() * 20) + 'px';
+    flower.style.height = flower.style.width;
+
+    document.getElementById('falling-flowers').appendChild(flower);
+
+    setTimeout(() => {
+      flower.remove();
+    }, 8000);
+  }
+
+  setInterval(createFlower, 300);
+
+  // Управление музыкой
+  const music = document.getElementById('bg-music');
+  const musicBtn = document.getElementById('music-btn');
+  let isPlaying = false;
+
+  function toggleMusic() {
+    const lang = localStorage.getItem('language') || 'kz';
+    const t = translations[lang];
+    
+    if (isPlaying) {
+      music.pause();
+      musicBtn.textContent = t.musicButtonPlay;
+    } else {
+      music.play()
+        .then(() => {
+          musicBtn.textContent = t.musicButtonStop;
+        })
+        .catch(error => {
+          console.error("Ошибка воспроизведения:", error);
+          musicBtn.textContent = '🎵 Ошибка';
+        });
+    }
+    isPlaying = !isPlaying;
+  }
+
+  musicBtn.addEventListener('click', toggleMusic);
+
+  // При загрузке страницы устанавливаем сохраненный язык
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedLang = localStorage.getItem('language') || 'kz';
+    const btn = savedLang === 'kz' 
+      ? document.querySelector('.language-btn:first-child') 
+      : document.querySelector('.language-btn:last-child');
+    btn.click();
+    
+    // Опционально: автоматическое включение музыки при первом взаимодействии
+    document.addEventListener('click', function initMusic() {
+      if (!isPlaying) {
+        toggleMusic();
+      }
+      document.removeEventListener('click', initMusic);
+    }, { once: true });
+  });
+</script>
+</body>
+</html>
